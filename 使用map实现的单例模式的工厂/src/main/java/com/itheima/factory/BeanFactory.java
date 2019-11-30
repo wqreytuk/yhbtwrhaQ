@@ -1,6 +1,5 @@
 package com.itheima.factory;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -31,7 +30,6 @@ public class BeanFactory {
 
      //定义一个Map，用于存放我们要创建的对象，我们称之为***容器***
     private static Map<String, Object> beans;
-
      //使用静态代码块为Properties对象赋值
     static {
          try {
