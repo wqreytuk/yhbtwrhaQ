@@ -2,8 +2,6 @@ package com.itheima.ui;
 
 import com.itheima.dao.IAccountDao;
 import com.itheima.service.IAccountService;
-import com.itheima.service.impl.AccountServiceImpl;
-import javafx.application.Application;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
