@@ -20,6 +20,7 @@
             - 其他bean类型
                 在配置文件中或者注解中配置过的bean
             - 复杂类型（集合类型）
+
         注入方式，也是三种
             - 构造函数
                 使用constructor-arg标签
@@ -71,4 +72,52 @@
         <property name="age" value="20"></property>
         <property name="birthday" ref="now"></property>
     </bean>
+
+    <!--
+        复杂类型注入
+            用于给List结构注入数据的标签有
+                list array set
+            用于给Map结构注入数据的标签有
+                map props
+            同一种结构的数据，可以互换标签
+    -->
+    <bean id="accountService3" class="com.itheima.service.impl.AccountServiceImpl3">
+        <property name="myStrs">
+            <array>
+                <value>AAA</value>
+                <value>BBB</value>
+                <value>CCC</value>
+            </array>
+        </property>
+        <property name="myList">
+            <list>
+                <value>111</value>
+                <value>222</value>
+                <value>333</value>
+            </list>
+        </property>
+        <property name="myMap">
+            <map>
+                <entry key="111" value="aaa"></entry>
+                <entry key="222" value="bbb"></entry>
+                <entry key="333" value="ccc"></entry>
+            </map>
+        </property>
+        <property name="myProps">
+            <props>
+                <prop key="props111">propsaaa</prop>
+                <prop key="props222">propsbbb</prop>
+                <prop key="props333">propsccc</prop>
+            </props>
+        </property>
+        <property name="mySet">
+            <set>
+                <value>setAAA</value>
+                <value>setBBB</value>
+                <value>setCCC</value>
+            </set>
+        </property>
+    </bean>
+
+
 </beans>

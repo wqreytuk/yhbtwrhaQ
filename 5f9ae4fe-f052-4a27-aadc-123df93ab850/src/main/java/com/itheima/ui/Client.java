@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Client {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
-        IAccountService as = ac.getBean("accountService2", IAccountService.class);
+        IAccountService as = ac.getBean("accountService3", IAccountService.class);
         as.saveAccount();
     }
 }
