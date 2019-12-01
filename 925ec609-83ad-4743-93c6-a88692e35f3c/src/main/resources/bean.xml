@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--把对象的创建交给spring来管理-->
+    <!--
+    spring对bean的管理细节
+        创建bean的三种方式
+            - 使用默认构造函数创建bean对象
+                在配置文件中使用bean标签，当该标签中只有id和class属性时，那么即采用类的
+                默认构造函数创建对象，如果该类中没有默认构造函数，那么对象将无法创建
+                <bean id="accountService"  class="com.itheima.service.impl.AccountServiceImpl"></bean>
+            - 使用某个类中的方法创建对象，并存入spring容器
+                对于第一种创建方式，我们可能会遇到一些问题，比如我们引入了一个jar包，该jar包
+                中的类并没有默认构造函数，此时我们就无法使用第一种方式来获取对象了
+                先创建工厂对象，然后再使用该工厂的方法创建对象
+                <bean id="instanceFactory" class="com.itheima.factory.InstanceFactory"></bean>
+                <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"></bean>
+
+                ***这个工厂类可由我们自己编写，然后再在其中定义一个创建jar包中的对象的方法***
+            - 使用某个类中的静态方法创建对象，并将其存入spring对象
+                <bean id="accountService" class="com.itheima.factory.StaticFactory" factory-method="getAccountService"></bean>
+            ***后两种方法就是用来解决jar包中类没有默认构造方法的问题的***
+        bean对象的作用范围
+            spring的bean对象默认情况下是单例的，也就是说，在不声明其他属性的情况下，
+            使用spring的容器获取的对象都是同一个对象
+                我们可以使用scope属性指定bean的作用范围
+                最常用的就是前两种
+                    singleton
+                        默认值
+                            单例
+                    prototype
+                        多例
+                    request
+                        作用于web的请求范围
+                    session
+                        作用于web应用的会话范围
+                    global-session
+                        作用于集成环境的会话范围
+                            前台负载均衡服务器将请求交给后台的服务器集群
+                                由于每次请求不一定总是交给同一台后台服务器进行处理
+                                引入了global-session，使得后面的所有服务器都能够识别同一用户的会话
+        bean对象的生命周期
+            单例对象
+                出生
+                    容器创建时
+                活着
+                    只要容器在，单例对象就在
+                死亡
+                    容器销毁
+                ***其生命周期和容器是一致的***
+            多例对象
+                出生
+                    由于多例采用的是延时加载策略，所以只有当我们使用对象时才会创建对象
+                活着
+                    对象只要还处于使用过程中，那么对象就一直是活着的
+                死亡
+                    由java的垃圾回收机制负责回收
+    -->
+<!--    当scope为prototype时，就算指定了destroy-method，我们在主方法中调用close时也不会被执行-->
+    <bean id="accountService"  class="com.itheima.service.impl.AccountServiceImpl" scope="singleton" init-method="init" destroy-method="destroy"></bean>
+
+</beans>
