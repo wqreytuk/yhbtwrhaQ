@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--
+    spring中的依赖注入
+        Dependency Injection
+    IOC的作用
+       降低程序耦合（依赖关系）
+    依赖关系的管理都交由spring来维护
+    如果当前类需要用到其他类对象，那么我们就需要在spring的配置文件中进行说明
+
+    ***依赖关系的维护就是依赖注入***
+
+    依赖注入
+        能注入的数据有三种类型
+            - 基本类型和String
+            - 其他bean类型
+                在配置文件中或者注解中配置过的bean
+            - 复杂类型（集合类型）
+        注入方式，也是三种
+            - 构造函数
+                使用constructor-arg标签
+                标签中的属性
+                    type
+                        指定要注入的数据类型
+                    index
+                        用于指定要注入的数据在构造函数中的参数索引位置（从0开始）
+                    name
+                        用于指定要注入的数据在构造函数中的参数名
+                ****以上三种属性用于指定构造函数中的参数，主要使用第三个，前两个基本不使用****
+                    value
+                        用于提供基本类型和String类型的数据
+                    ref
+                        用于引用关联的bean对象
+                            *** bean对象指的就是在spring的核心容器中出现过的bean对象 ***
+
+                这种注入方式的优势是在获取bean对象时，就必须要注入数据，否则是无法创建对象的
+                弊端是它改变了bean对象的实例化方式，导致我们必须为构造函数中的每一个参数提供值，即使我们用不到这些数据
+                ***这种注入方式并不常用***
+
+            - 使用类的set方法进行注入
+                使用property标签
+                属性
+                    name
+                        注入数据时使用的set方法名称
+                    value
+                        用于提供基本类型和String类型的数据
+                    ref
+                        用于引用关联的bean对象
+                优势
+                    创建对象时并没有明确的限制，可以直接使用默认构造函数
+                弊端
+                    如果某个成员必须有值，但我们却没有给该成员变量赋值，那么就会导致对象创建失败
+            **** 上述两种方式中最常用的是set方法注入 ****
+            - 使用注解提供
+-->
+    <bean id="accountService"  class="com.itheima.service.impl.AccountServiceImpl">
+        <constructor-arg name="name" value="test"></constructor-arg>
+        <constructor-arg name="age" value="18"></constructor-arg>
+        <!--    对于复杂类型需要使用ref进行bean id的引用    -->
+        <constructor-arg name="birthday" ref="now"></constructor-arg>
+    </bean>
+    <!-- 配置一个日期对象 -->
+    <bean id="now" class="java.util.Date"></bean>
+
+    <bean id="accountService2" class="com.itheima.service.impl.AccountServiceImpl2">
+        <property name="name" value="test"></property>
+        <property name="age" value="20"></property>
+        <property name="birthday" ref="now"></property>
+    </bean>
+</beans>
