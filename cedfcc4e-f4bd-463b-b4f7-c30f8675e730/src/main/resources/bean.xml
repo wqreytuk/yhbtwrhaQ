@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-
+<!--    告诉spring在创建容器时从指定的包中的注解中进行对象的创建-->
     <context:component-scan base-package="com.itheima"></context:component-scan>
 
 </beans>
